@@ -4,4 +4,9 @@ public interface UpdateOption {
     int UPDATE_QUANTITY = 3;
     int UPDATE_UNIT_PRICE = 4;
     int RETURN_TO_MAIN = 5;
+
+    void updateAllOption();
+    void updateNameOption();
+    void updateQuantityOption();
+    void updateUnitPriceOption();
 }

@@ -30,7 +30,5 @@ public interface DisplayLayout {
 
     void exitProgramLayout();
 
-    void outputMessageLayout(String message);
-    void outputMessageErrorLayout(String message);
     void outputUpdateOptionLayout();
 }
