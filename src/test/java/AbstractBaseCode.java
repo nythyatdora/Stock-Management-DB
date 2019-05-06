@@ -69,7 +69,12 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
     @Override
     public void outputHelpLayout() {
         AsciiTable at = new AsciiTable();
-        at.addRule();
+        AsciiTable on = new AsciiTable();
+        on.addRule();
+        on.addRow("HELP");
+        on.addRow("=====================================================================================");
+
+        at.addRow("", "","");
         at.addRow("1.", "Press","[*]    : Display all record of product").setPaddingLeftRight(2);
         at.addRow("2.", "Press","[W|w]  : Add new product").setPaddingLeftRight(2);
         at.addRow("",   "Press","[W|w] -> #proname-unit_price-qty : shortcut for add new product").setPaddingLeftRight(2);
@@ -87,13 +92,19 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
         at.addRow("12.", "Press","[C|c] : Backup Data").setPaddingLeftRight(2);
         at.addRow("13.", "Press","[T|t] : Restore data").setPaddingLeftRight(2);
         at.addRow("14.", "Press","[H|h] : Help").setPaddingLeftRight(2);
+        at.addRow("", "","");
         at.addRule();
+
+        on.getContext().setGridTheme(TA_GridThemes.OUTSIDE);// Cut inside border
+        on.getContext().setGrid(U8_Grids.borderDouble());//double border style
+        on.setTextAlignment(de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment.CENTER);
+        on.getContext().setWidth(87);
+        System.out.println(on.render());
 
         CWC_LongestLine cwc = new CWC_LongestLine();
         at.getRenderer().setCWC(cwc);
-        at.getContext().setGridTheme(TA_GridThemes.OUTSIDE);
-        at.getContext().setGrid(U8_Grids.borderDouble());
-
+        at.getContext().setGridTheme(TA_GridThemes.OUTSIDE);// Cut inside border
+        at.getContext().setGrid(U8_Grids.borderDouble());//double border style
         System.out.println(at.render());
     }
 
@@ -105,23 +116,28 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
     @Override
     public void outputProductData(Product product) {
         AsciiTable table = new AsciiTable();
+        AsciiTable on = new AsciiTable();
+        on.addRule();
 
-        table.addRule();
-        table.addRow("ID", " : " + + product.getProductID());
+        on.addRow("TABLE PRODUCT");
+        on.addRow("==================================================");
 
+        table.addRow("ID", " : " + product.getProductID());
         table.addRow("Name", " : " + product.getProductName());
-
         table.addRow("Unit price", " : " + product.getUnitPrice());
-
         table.addRow("Qty", " : " + product.getQuantity());
-
         table.addRow("Imported Date", " : " + product.getImportDate());
         table.addRule();
 
+        on.getContext().setGridTheme(TA_GridThemes.OUTSIDE);// Cut inside border
+        on.getContext().setGrid(U8_Grids.borderDouble());//double border style
+        on.setTextAlignment(de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment.CENTER);
+        on.getContext().setWidth(52);
+        System.out.println(on.render());
+
         table.setPaddingRight(3);
         table.setPaddingLeft(1);
-        CWC_LongestLine cwc = new CWC_LongestLine();
-        table.getRenderer().setCWC(cwc);
+        table.getContext().setWidth(52);
         table.getContext().setGridTheme(TA_GridThemes.OUTSIDE);
         table.getContext().setGrid(U8_Grids.borderDouble());
         System.out.println(table.render());
