@@ -10,6 +10,10 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
     private static MetaData metaData;
     private static ArrayList<Product> listOfProducts;
 
+    AbstractBaseCode() {
+
+    }
+
     // DisplayLayout
     @Override
     public void outputWelcomeLayout() {
@@ -54,9 +58,23 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
         AsciiTable mainLayout = new AsciiTable();
 
         mainLayout.addRule();
-        mainLayout.addRow("[*]\tDisplay","[W|w]\tWrite","[R|r]\tRead","[U|u]\tUpdate","[D|d]\tDelete","[F|f]\tFirst","[P|p]\tPrevious","[N|n]\tNext");
+        mainLayout.addRow(null, null, null, null, null, "Main").setTextAlignment(TextAlignment.CENTER);
         mainLayout.addRule();
-        mainLayout.addRow("[L|l]\tLast","[G|g]\tGoto","[O|o]\tSet Row","[V|v]\tSave","[C|c]\tBack up","[T|t]\tRestore","[H|h]\tHelp","[E|e]\tExit");
+        mainLayout.addRow(null, null, "[*]\tDisplay", null, null, "[G|g]\tGoto");
+        mainLayout.addRule();
+        mainLayout.addRow(null, null, "[W|w]\tWrite", null, null, "[O|o]\tSet Row");
+        mainLayout.addRule();
+        mainLayout.addRow(null, null, "[R|r]\tRead", null, null, "[V|v]\tSave");
+        mainLayout.addRule();
+        mainLayout.addRow(null, null, "[U|u]\tUpdate", null, null, "[C|c]\tBack up");
+        mainLayout.addRule();
+        mainLayout.addRow(null, null, "[D|d]\tDelete", null, null, "[T|t]\tRestore");
+        mainLayout.addRule();
+        mainLayout.addRow(null, null, "[H|h]\tHelp", null, null, "[E|e]\tExit");
+        mainLayout.addRule();
+        mainLayout.addRow("[F|f]\tFirst","[P|p]\tPrevious", "", "", "[N|n]\tNext", "[L|l]\tLast");
+        mainLayout.addRule();
+        mainLayout.addRow(null, null, null, null, null,"Status: ");
         mainLayout.addRule();
 
         mainLayout.getContext().setWidth(160);
@@ -156,7 +174,6 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
         if (lastPage == viewPage) {
             for (int i = (viewPage - 1) * rowSetup; i < products.size(); i++) {
                 Product product = products.get(i);
-
                 table.addRow(product.getProductID(), product.getProductName(), product.getUnitPrice(),
                         product.getQuantity(), product.getImportDate());
                 table.addRule();
@@ -225,16 +242,16 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
                     break;
 
                 default:
-                    outputMessageLayout("Invalid Input!", MessageLayout.TYPE_DANGER);
+                    outputMessageLayout("MESSAGE","Invalid Input!", MessageLayout.TYPE_DANGER);
                     break;
             }
         } while(toContinue);
 
         if(!hasInserted) {
-            outputMessageLayout("Process Canceled!", MessageLayout.TYPE_WARNING);
+            outputMessageLayout("MESSAGE","Process Canceled!", MessageLayout.TYPE_WARNING);
         }
         else {
-            outputMessageLayout("Product with ID : " + id + " was added successfully!", MessageLayout.TYPE_SUCCESS);
+            outputMessageLayout("MESSAGE","Product with ID : " + id + " was added successfully!", MessageLayout.TYPE_SUCCESS);
         }
     }
 
@@ -250,7 +267,7 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
         System.out.println();
 
         if(!isFound) {
-            outputMessageLayout("Product not found!", MessageLayout.TYPE_WARNING);
+            outputMessageLayout("MESSAGE","Product not found!", MessageLayout.TYPE_WARNING);
         }
         else {
             displayProductByID();
@@ -267,7 +284,7 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
         isFound = findProductByName();
 
         if(!isFound) {
-            outputMessageLayout("Product Not Found!", MessageLayout.TYPE_WARNING);
+            outputMessageLayout("MESSAGE","Product Not Found!", MessageLayout.TYPE_WARNING);
         }
         else {
             searchResult = displayProductByName();
@@ -290,7 +307,7 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
         System.out.println();
 
         if(!isFound) {
-            outputMessageLayout("Product Not Found!", MessageLayout.TYPE_WARNING);
+            outputMessageLayout("MESSAGE","Product Not Found!", MessageLayout.TYPE_WARNING);
         }
         else {
             displayProductByID();
@@ -315,10 +332,10 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
 
             if (!hasDeleted) {
                 System.out.println();
-                outputMessageLayout("Process Canceled!", MessageLayout.TYPE_WARNING);
+                outputMessageLayout("MESSAGE","Process Canceled!", MessageLayout.TYPE_WARNING);
             }
             else {
-                outputMessageLayout("Product with ID : " + productID + " was deleted successfully!", MessageLayout.TYPE_SUCCESS);
+                outputMessageLayout("MESSAGE","Product with ID : " + productID + " was deleted successfully!", MessageLayout.TYPE_SUCCESS);
             }
         }
     }
@@ -340,7 +357,7 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
 
         if(!isFound) {
             System.out.println();
-            outputMessageLayout("Product Not Found!", MessageLayout.TYPE_WARNING);
+            outputMessageLayout("MESSAGE","Product Not Found!", MessageLayout.TYPE_WARNING);
             return;
         }
         else {
@@ -382,7 +399,7 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
 
                     default:
                         System.out.println();
-                        outputMessageLayout("Invalid Input!", MessageLayout.TYPE_DANGER);
+                        outputMessageLayout("MESSAGE","Invalid Input!", MessageLayout.TYPE_DANGER);
                         System.out.println();
                         break;
                 }
@@ -392,12 +409,12 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
 
         if(!hasUpdated) {
             System.out.println();
-            outputMessageLayout("Process Canceled!", MessageLayout.TYPE_WARNING);
+            outputMessageLayout("MESSAGE","Process Canceled!", MessageLayout.TYPE_WARNING);
             System.out.println();
         }
         else {
             System.out.println();
-            outputMessageLayout("Product with ID : " + productID + " was updated successfully!", MessageLayout.TYPE_SUCCESS);
+            outputMessageLayout("MESSAGE","Product with ID : " + productID + " was updated successfully!", MessageLayout.TYPE_SUCCESS);
         }
     }
 
@@ -589,7 +606,17 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
     // End UpdateOption
 
     @Override
-    public void outputMessageLayout(String message, int type) {
+    public void outputMessageLayout(String title, String message, int type) {
+        AsciiTable dialog = new AsciiTable();
 
+        dialog.addRule();
+        dialog.addRow(title);
+        dialog.addRule();
+        dialog.addRow(message);
+        dialog.addRule();
+        dialog.setTextAlignment(TextAlignment.CENTER);
+        dialog.getContext().setGrid(U8_Grids.borderDouble());
+
+        System.out.println(dialog.render());
     }
 }

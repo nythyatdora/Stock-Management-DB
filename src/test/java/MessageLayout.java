@@ -4,5 +4,5 @@ public interface MessageLayout {
     int TYPE_SUCCESS = 2;
     int TYPE_DANGER = 3;
 
-    void outputMessageLayout(String message, int type);
+    void outputMessageLayout(String title, String message, int type);
 }

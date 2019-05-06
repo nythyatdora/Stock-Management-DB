@@ -99,7 +99,7 @@ public class Tester implements InputCommand {
                     break;
 
                 default:
-                    baseCode.outputMessageLayout("Invalid Input!", MessageLayout.TYPE_WARNING);
+                    baseCode.outputMessageLayout("MESSAGE","Invalid Input!", MessageLayout.TYPE_WARNING);
                     break;
             }
 
