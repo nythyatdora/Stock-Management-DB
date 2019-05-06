@@ -9,7 +9,7 @@ public interface DisplayLayout {
     void outputTableDataLayout();
 
     void outputProductData(Product product);
-    void displayTableData(int startRow, int viewPage, ArrayList<Product> products);
+    void displayTableData(int rowSetup, int viewPage, ArrayList<Product> products);
 
     void writeDataLayout();
     void readDataLayout();
@@ -30,7 +30,5 @@ public interface DisplayLayout {
 
     void exitProgramLayout();
 
-    void outputMessageLayout(String message);
-    void outputMessageErrorLayout(String message);
     void outputUpdateOptionLayout();
 }

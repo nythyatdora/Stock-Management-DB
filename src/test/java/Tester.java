@@ -2,9 +2,7 @@ public class Tester implements InputCommand {
     public static void main(String[] args) {
         BaseCode baseCode = new BaseCode();
 
-        baseCode.outputWelcomeLayout();
         baseCode.outputLogoLayout();
-        baseCode.outputLoadingLayout();
 
         do {
             System.out.println();
@@ -97,11 +95,11 @@ public class Tester implements InputCommand {
 
                 case EXIT_UPPER:
                 case EXIT_LOWER:
-                    System.exit(0);
+                    baseCode.exitProgramLayout();
                     break;
 
                 default:
-                    baseCode.outputMessageErrorLayout("Invalid Input!");
+                    baseCode.outputMessageLayout("MESSAGE","Invalid Input!", MessageLayout.TYPE_WARNING);
                     break;
             }
 
