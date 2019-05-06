@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, DataManipulate, UpdateOption, MessageLayout {
     private static MetaData metaData;
     private static ArrayList<Product> listOfProducts;
+    private static Connectivity connectivity;
 
     AbstractBaseCode() {
 
@@ -36,13 +37,6 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
                 "██║╚██╔╝██║██╔══██║██║╚██╗██║██╔══██║██║   ██║██╔══╝  ██║╚██╔╝██║██╔══╝  ██║╚██╗██║   ██║",
                 "██║ ╚═╝ ██║██║  ██║██║ ╚████║██║  ██║╚██████╔╝███████╗██║ ╚═╝ ██║███████╗██║ ╚████║   ██║",
                 "╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝",
-
-                "██╗    ██╗██╗████████╗██╗  ██╗    ██████╗ ██████╗   ██╗   ██╗ ██╗",
-                "██║    ██║██║╚══██╔══╝██║  ██║    ██╔══██╗██╔══██╗  ██║   ██║███║",
-                "██║ █╗ ██║██║   ██║   ███████║    ██║  ██║██████╔╝  ██║   ██║╚██║",
-                "██║███╗██║██║   ██║   ██╔══██║    ██║  ██║██╔══██╗  ╚██╗ ██╔╝ ██║",
-                "╚███╔███╔╝██║   ██║   ██║  ██║    ██████╔╝██████╔╝██╗╚████╔╝  ██║",
-                " ╚══╝╚══╝ ╚═╝   ╚═╝   ╚═╝  ╚═╝    ╚═════╝ ╚═════╝ ╚═╝ ╚═══╝   ╚═╝"
         };
 
         CommonMethod.printlnStrings(logoText);
@@ -58,23 +52,21 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
         AsciiTable mainLayout = new AsciiTable();
 
         mainLayout.addRule();
-        mainLayout.addRow(null, null, null, null, null, "Main").setTextAlignment(TextAlignment.CENTER);
+        mainLayout.addRow(null, null, null, null, null, "Main");
         mainLayout.addRule();
-        mainLayout.addRow(null, null, "[*]\tDisplay", null, null, "[G|g]\tGoto");
+        mainLayout.addRow(null, null, "[*]\tDisplay", null, null, "[V|v]\tSave");
         mainLayout.addRule();
-        mainLayout.addRow(null, null, "[W|w]\tWrite", null, null, "[O|o]\tSet Row");
+        mainLayout.addRow(null, null, "[W|w]\tWrite", null, null, "[C|c]\tBack up");
         mainLayout.addRule();
-        mainLayout.addRow(null, null, "[R|r]\tRead", null, null, "[V|v]\tSave");
+        mainLayout.addRow(null, null, "[R|r]\tRead", null, null, "[T|t]\tRestore");
         mainLayout.addRule();
-        mainLayout.addRow(null, null, "[U|u]\tUpdate", null, null, "[C|c]\tBack up");
+        mainLayout.addRow(null, null, "[U|u]\tUpdate", null, null, "[H|h]\tHelp");
         mainLayout.addRule();
-        mainLayout.addRow(null, null, "[D|d]\tDelete", null, null, "[T|t]\tRestore");
+        mainLayout.addRow(null, null, "[D|d]\tDelete", null, null, "[E|e]\tExit");
         mainLayout.addRule();
-        mainLayout.addRow(null, null, "[H|h]\tHelp", null, null, "[E|e]\tExit");
+        mainLayout.addRow("[F|f]\tFirst","[P|p]\tPrevious", "[O|o]\tSet Row", "[G|g]\tGoto", "[N|n]\tNext", "[L|l]\tLast");
         mainLayout.addRule();
-        mainLayout.addRow("[F|f]\tFirst","[P|p]\tPrevious", "", "", "[N|n]\tNext", "[L|l]\tLast");
-        mainLayout.addRule();
-        mainLayout.addRow(null, null, null, null, null,"Status: ");
+        mainLayout.addRow(null, null, "Status: ", null, null, "Commit: ").setTextAlignment(TextAlignment.LEFT);
         mainLayout.addRule();
 
         mainLayout.getContext().setWidth(160);
