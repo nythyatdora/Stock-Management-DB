@@ -1,3 +1,7 @@
+import de.vandermeer.asciitable.AsciiTable;
+import de.vandermeer.asciithemes.u8.U8_Grids;
+import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
+
 import java.util.ArrayList;
 
 public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, DataManipulate, UpdateOption {
@@ -19,6 +23,27 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
 
     @Override
     public void outputMainLayout() {
+//        AsciiTable mainLayout = new AsciiTable();
+//        mainLayout.addRule();
+//        mainLayout.addRow(null, null, null, null, null, "Main");
+//        mainLayout.addRule();
+//        mainLayout.addRow(null, null, null, null, null, "---");
+//        mainLayout.addRule();
+//        mainLayout.addRow("[ ]", null, null, null, null,"[ ]");
+//        mainLayout.addRule();
+//        mainLayout.addRow(null, null, " ", " ", " ", "---");
+////        mainLayout.addRule();
+////        mainLayout.addRow(" ", null, null, " "," ", " ");
+////        mainLayout.addRule();
+////        mainLayout.addRow(" ", " ", " ", "", "", "");
+////        mainLayout.addRule();
+////        mainLayout.addRow(" ", " ", " ", "", "", "");
+//        mainLayout.addRule();
+//        mainLayout.getContext().setWidth(160);
+//        mainLayout.setTextAlignment(TextAlignment.CENTER);
+//        mainLayout.getContext().setGrid(U8_Grids.borderDouble());
+//        System.out.println(mainLayout.render());
+
 
     }
 
@@ -29,6 +54,7 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
 
     @Override
     public void outputTableDataLayout() {
+
 
     }
 
@@ -79,6 +105,30 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
 
     @Override
     public void restoreDataToSourceLayout() {
+        AsciiTable at = new AsciiTable();
+        at.addRule();
+        at.addRow(null, null, null, "Choose Table To Restore").setTextAlignment(TextAlignment.CENTER);
+        at.addRule();
+        at.addRow("ID", "Recovery", "Date", "Option").setTextAlignment(TextAlignment.CENTER);
+        at.addRule();
+        at.addRow("-", "-", "-", "-").setTextAlignment(TextAlignment.CENTER);
+        at.addRow("-", "-", "-", "-").setTextAlignment(TextAlignment.CENTER);
+        at.addRow("-", "-", "-", "-").setTextAlignment(TextAlignment.CENTER);
+        at.addRow("-", "-", "-", "-").setTextAlignment(TextAlignment.CENTER);
+        at.addRow("-", "-", "-", "-").setTextAlignment(TextAlignment.CENTER);
+        at.addRow("-", "-", "-", "-").setTextAlignment(TextAlignment.CENTER);
+        at.addRow("-", "-", "-", "-").setTextAlignment(TextAlignment.CENTER);
+        at.addRow("-", "-", "-", "-").setTextAlignment(TextAlignment.CENTER);
+        at.addRow("-", "-", "-", "-").setTextAlignment(TextAlignment.CENTER);
+        at.addRow("-", "-", "-", "-").setTextAlignment(TextAlignment.CENTER);
+        at.addRow("-", "-", "-", "-").setTextAlignment(TextAlignment.CENTER);
+        at.addRow("-", "-", "-", "-").setTextAlignment(TextAlignment.CENTER);
+        at.addRule();
+        at.addRow(null, null, null, "Total:_________   ").setTextAlignment(TextAlignment.JUSTIFIED_RIGHT);
+        at.addRule();
+        String rend = at.render();
+        System.out.println(rend);
+
 
     }
 
@@ -119,6 +169,9 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
 
     @Override
     public void outputMessageLayout(String message) {
+        AsciiTable at = new AsciiTable();
+        at.addRule();
+
 
     }
 
