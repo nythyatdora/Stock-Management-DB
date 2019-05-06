@@ -5,8 +5,8 @@ public interface UpdateOption {
     int UPDATE_UNIT_PRICE = 4;
     int RETURN_TO_MAIN = 5;
 
-    void updateAllOption();
-    void updateNameOption();
-    void updateQuantityOption();
-    void updateUnitPriceOption();
+    void updateAllOption(Product product);
+    void updateNameOption(Product product);
+    void updateQuantityOption(Product product);
+    void updateUnitPriceOption(Product product);
 }
