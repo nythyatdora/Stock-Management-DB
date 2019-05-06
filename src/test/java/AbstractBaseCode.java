@@ -23,26 +23,21 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
 
     @Override
     public void outputMainLayout() {
-        AsciiTable mainLayout = new AsciiTable();
-        mainLayout.addRule();
-        mainLayout.addRow(null, null, null, null, null, "Main");
-        mainLayout.addRule();
-        mainLayout.addRow(null, null, null, null, null, "---");
-        mainLayout.addRule();
-//        mainLayout.addRow("[ ]", null, null, null, null,"[ ]");
-//        mainLayout.addRule();
-//        mainLayout.addRow(null, null, " ", " ", " ", "---");
-////        mainLayout.addRule();
-////        mainLayout.addRow(" ", null, null, " "," ", " ");
-////        mainLayout.addRule();
-////        mainLayout.addRow(" ", " ", " ", "", "", "");
-////        mainLayout.addRule();
-////        mainLayout.addRow(" ", " ", " ", "", "", "");
-//        mainLayout.addRule();
-        mainLayout.getContext().setWidth(160);
-        mainLayout.setTextAlignment(TextAlignment.CENTER);
-        mainLayout.getContext().setGrid(U8_Grids.borderDouble());
-        System.out.println(mainLayout.render(80));
+        AsciiTable m = new AsciiTable();
+        m.addRule();
+        m.addRow(null, null, null, null, null, "Main").setTextAlignment(TextAlignment.CENTER);
+        m.addRule();
+        m.addRow(null, null, null, null, null, "---").setTextAlignment(TextAlignment.CENTER);
+        m.addRule();
+        m.addRow("", "", " ", "", " ", "");
+        m.addRule();
+        m.addRow("", "", " ", "", " ", "");
+        m.addRule();
+        m.addRow("", "", " ", "", " ", "");
+        m.addRule();
+        m.addRow(null, null, null, null, null,"Status: ---------");
+        m.addRule();
+        System.out.println(m.render());
 
 
     }
@@ -177,8 +172,6 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
         at.addRule();
         at.setTextAlignment(TextAlignment.CENTER);
         System.out.println(at.render());
-
-
     }
 
     @Override
