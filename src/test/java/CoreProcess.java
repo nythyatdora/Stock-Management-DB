@@ -6,12 +6,11 @@ public interface CoreProcess {
     boolean backupDataToSourceProcess();
     boolean restoreDataToSourceProcess();
 
-    void moveToFirstProcess(int rowSetup, ArrayList<Product> products);
-    void moveToLastPageProcess(int rowSetup, ArrayList<Product> products);
-    void moveToPreviousPageProcess(int rowSetup, ArrayList<Product> products);
-    void moveToNextPageProcess(int rowSetup, ArrayList<Product> products);
+    void moveToFirstProcess();
+    void moveToLastPageProcess();
+    void moveToPreviousPageProcess();
+    void moveToNextPageProcess();
 
     void setRowProcess();
-
-    void gotoDataProcess(int rowSetup, ArrayList<Product> products);
+    void gotoDataProcess();
 }
