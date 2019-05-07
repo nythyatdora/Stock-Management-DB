@@ -6,6 +6,8 @@ public interface CoreProcess {
     boolean backupDataToSourceProcess();
     boolean restoreDataToSourceProcess();
 
+    Product readNewInputProduct(int productID);
+
     void moveToFirstProcess();
     void moveToLastPageProcess();
     void moveToPreviousPageProcess();

@@ -4,15 +4,36 @@ import de.vandermeer.asciithemes.TA_GridThemes;
 import de.vandermeer.asciithemes.u8.U8_Grids;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, DataManipulate, UpdateOption, MessageLayout {
-    private static MetaData metaData;
-    private static ArrayList<Product> listOfProducts;
-    private static Connectivity connectivity;
+    private MetaData metaData;
+    private ArrayList<Product> listOfProducts;
+    private Connectivity connectivity;
+    private ShutdownConnectivityThread shutdownConnectivityThread;
 
     AbstractBaseCode() {
+        connectivity = new Connectivity();
+        shutdownConnectivityThread = new ShutdownConnectivityThread();
+        Runtime.getRuntime().addShutdownHook(shutdownConnectivityThread);
+        System.out.println("CONNECTION SUCCESS : " + Connectivity.startConnection());
 
+        ResultSet rs;
+        try {
+            rs = connectivity.executeQueryStatement("SELECT * FROM table_metadata", ResultSet.FETCH_FORWARD, ResultSet.CONCUR_READ_ONLY);
+            metaData = MetaData.convertToMetaData(rs);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        catch (NullPointerException e) {
+            metaData = new MetaData();
+        }
+
+        System.out.println(metaData.setupRow);
+        System.out.println(metaData.currentPage);
     }
 
     // DisplayLayout
@@ -109,7 +130,7 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
 
     @Override
     public void outputTableDataLayout() {
-        displayTableData(metaData.startRow, metaData.currentPage, listOfProducts);
+        displayTableData(metaData.setupRow, metaData.currentPage, listOfProducts);
     }
 
     @Override
@@ -205,14 +226,7 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
         Product insertProduct;
         int id = -1;
 
-        System.out.println("======== INSERT NEW PRODUCT =========");
-        System.out.println("[NEW] Product ID         : " + id);
-        String productName = TextFieldConsole.readStringType("[NEW] Product Name       : ");
-        int productQuantity = TextFieldConsole.readIntegerType("[NEW] Product Quantity   : ");
-        double productUnitPrice = TextFieldConsole.readDoubleType("[NEW] Product Unit-Price : ");
-        String importDate = CommonMethod.formalDateFormat();
-
-        insertProduct = new Product(id, productName, productUnitPrice, productQuantity, importDate);
+        insertProduct = readNewInputProduct(id);
 
         System.out.println();
         outputProductData(insertProduct);
@@ -474,6 +488,25 @@ public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, Da
     // END DisplayLayout
 
     // CoreProcess
+    @Override
+    public Product readNewInputProduct(int productID) {
+        int id = -1;
+        String productName;
+        int productQuantity;
+        double productUnitPrice;
+        String importDate;
+
+        System.out.println("======== INSERT NEW PRODUCT =========");
+        System.out.println("[NEW] Product ID         : " + id);
+
+        productName = TextFieldConsole.readStringType("[NEW] Product Name       : ");
+        productQuantity = TextFieldConsole.readIntegerType("[NEW] Product Quantity   : ");
+        productUnitPrice = TextFieldConsole.readDoubleType("[NEW] Product Unit-Price : ");
+        importDate = CommonMethod.formalDateFormat();
+
+        return new Product(id, productName, productUnitPrice, productQuantity, importDate);
+    }
+
     @Override
     public ArrayList<Product> readDataFromSourceProcess() {
         return null;

@@ -8,8 +8,9 @@ public class TextFieldConsole {
         System.out.print(placeholder);
         try {
             i = Integer.parseInt(scan.nextLine().split(" ")[0]);
-        } catch (RuntimeException e) {
-            i = -1;
+        }
+        catch(NumberFormatException e) {
+            return readIntegerType(placeholder);
         }
 
         return i;
@@ -22,8 +23,9 @@ public class TextFieldConsole {
 
         try {
             d = Double.parseDouble(scan.nextLine().split(" ")[0]);
-        } catch (RuntimeException e) {
-            d = 0D;
+        }
+        catch (NumberFormatException e) {
+            return readDoubleType(placeholder);
         }
 
         return d;
@@ -36,8 +38,9 @@ public class TextFieldConsole {
 
         try {
             c = scan.nextLine().split(" ")[0].charAt(0);
-        } catch (RuntimeException e) {
-            c = '\0';
+        }
+        catch(RuntimeException e) {
+            return '\0';
         }
 
         return c;
@@ -51,7 +54,7 @@ public class TextFieldConsole {
             str = scan.nextLine();
         }
         catch (RuntimeException e) {
-            str = "\0";
+            return "";
         }
 
         return str;

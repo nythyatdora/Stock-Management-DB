@@ -2,20 +2,17 @@ import java.sql.*;
 
 public class Connectivity {
     private static final String DRIVER_NAME = "org.postgresql.Driver";
-    private static final String LOCALHOST = "";
+    private static final String LOCALHOST = "localhost";
     private static final int PORT_NUMBER = 5432;
-    private static final String DATABASE_NAME = "postgres";
+    private static final String DATABASE_NAME = "TestProject";
 
     private static final String URL = "jdbc:postgresql://" + LOCALHOST + ":" + PORT_NUMBER + "/" + DATABASE_NAME;
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "";
 
-    private Connection connection;
-    private Statement statement;
-    private PreparedStatement preparedStatement;
-    private CallableStatement callableStatement;
+    private static Connection connection;
 
-    public boolean startConnection() {
+    public static boolean startConnection() {
         try {
             Class.forName(DRIVER_NAME);
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -28,7 +25,7 @@ public class Connectivity {
         return false;
     }
 
-    public boolean stopConnection() {
+    public static boolean stopConnection() {
         try {
             connection.close();
             return true;
@@ -39,52 +36,34 @@ public class Connectivity {
         }
     }
 
-    public boolean executeStatement(String queryString) {
+    public boolean executeStatement(String queryString) throws SQLException {
         boolean isSuccess;
-        try {
-            statement = connection.createStatement();
-            isSuccess = statement.execute(queryString);
-            statement.close();
-            return isSuccess;
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+        Statement statement;
+        statement = connection.createStatement();
+        isSuccess = statement.execute(queryString);
+        return isSuccess;
     }
 
-    public ResultSet executeQueryStatement(String queryString) {
+    public ResultSet executeQueryStatement(String queryString, int cursorType, int mode) throws SQLException {
+        Statement statement;
         ResultSet resultSet;
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(queryString);
-
-            return resultSet;
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+        statement = connection.createStatement(cursorType, mode);
+        resultSet = statement.executeQuery(queryString);
+        return resultSet;
     }
 
-    public int executeUpdateStatement(String queryString) {
+    public int executeUpdateStatement(String queryString) throws SQLException {
         int rowAffected;
-        try {
-            statement = connection.createStatement();
-            rowAffected = statement.executeUpdate(queryString);
-            statement.close();
-
-            return rowAffected;
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return -1;
+        Statement statement;
+        statement = connection.createStatement();
+        rowAffected = statement.executeUpdate(queryString);
+        return rowAffected;
     }
 
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
+        stopConnection();
     }
 }
 
