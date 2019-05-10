@@ -6,14 +6,8 @@ import java.util.ArrayList;
 public abstract class AbstractBaseCode  implements DisplayLayout, CoreProcess, DataManipulate, UpdateOption {
     // DisplayLayout
     {
-
-        try {
-            Connection con=new Connection();
-            con.connectToDataBase();
-            Statement st= Connection.con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Connection con=new Connection();
+        con.connectToDataBase();
     }
     @Override
     public void outputWelcomeLayout() {
