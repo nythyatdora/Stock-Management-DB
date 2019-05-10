@@ -8,7 +8,7 @@ public class BaseCode extends AbstractBaseCode {
     public void outputWelcomeLayout() {
         super.outputWelcomeLayout();
     }
-
+   
     /**
      *  process:
      *  - output logo
