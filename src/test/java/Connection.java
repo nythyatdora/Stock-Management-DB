@@ -2,32 +2,29 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Connection {
-    private static java.sql.Connection con = null;
+     static java.sql.Connection con = null;
 
-    public void connectToDataBase() {
+    public boolean connectToDataBase() {
 
         try {
             Class.forName("org.postgresql.Driver");
             con = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/Stock", "postgres", "1609");
-            System.out.println("sucessfully open");
+            return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            return false;
         }
     }
 
-    public void closeConnection() {
+    public boolean closeConnection() {
         try {
             con.close();
-            System.out.println("conection close");
+            return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+           return false;
         }
 
 
     }
 
-    public static void main(String[] args) {
-        new Connection().connectToDataBase();
-        new Connection().closeConnection();
-    }
+
 }

@@ -1,7 +1,20 @@
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
-public abstract class AbstractBaseCode implements DisplayLayout, CoreProcess, DataManipulate, UpdateOption {
+public abstract class AbstractBaseCode  implements DisplayLayout, CoreProcess, DataManipulate, UpdateOption {
     // DisplayLayout
+    {
+
+        try {
+            Connection con=new Connection();
+            con.connectToDataBase();
+            Statement st= Connection.con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void outputWelcomeLayout() {
 
